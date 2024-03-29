@@ -1,0 +1,68 @@
+---
+- name: Install Java (OpenJDK)
+  package:
+    name: java-11-openjdk
+    state: present
+
+- name: Import Elasticsearch GPG key
+  shell: rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
+
+- name: Add Elasticsearch repository
+  yum_repository:
+    name: elasticsearch
+    description: Elasticsearch Repository
+    baseurl: https://artifacts.elastic.co/packages/7.x/yum
+    gpgcheck: yes
+    gpgkey: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    enabled: yes
+
+- name: Install Elasticsearch
+  package:
+    name: elasticsearch
+    state: present
+
+- name: Enable and start Elasticsearch service
+  service:
+    name: elasticsearch
+    state: started
+    enabled: yes
+
+- name: Add Kibana repository
+  yum_repository:
+    name: kibana
+    description: Kibana Repository
+    baseurl: https://artifacts.elastic.co/packages/7.x/yum
+    gpgcheck: yes
+    gpgkey: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    enabled: yes
+
+- name: Install Kibana
+  package:
+    name: kibana
+    state: present
+
+- name: Enable and start Kibana service
+  service:
+    name: kibana
+    state: started
+    enabled: yes
+
+- name: Add Logstash repository
+  yum_repository:
+    name: logstash
+    description: Logstash Repository
+    baseurl: https://artifacts.elastic.co/packages/7.x/yum
+    gpgcheck: yes
+    gpgkey: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    enabled: yes
+
+- name: Install Logstash
+  package:
+    name: logstash
+    state: present
+
+- name: Enable and start Logstash service
+  service:
+    name: logstash
+    state: started
+    enabled: yes
